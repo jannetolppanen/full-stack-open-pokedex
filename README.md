@@ -1,4 +1,4 @@
-> 11.17 is Done
+> 11.18 is Done
 
 # Full Stack open CI/CD
 
