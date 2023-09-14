@@ -6,8 +6,9 @@ on:
       - master
 
 jobs:
-  a_test_job:
+  if_not_skipping:
     runs-on: ubuntu-20.04
+    if: ${{ !contains(github.event.head_commit.message, '#skip') }}
     steps:
       - uses: actions/checkout@v2
       - name: github context
@@ -20,10 +21,12 @@ jobs:
         run: echo "$COMMITS"
       - name: commit messages
         env:
-          COMMIT_MESSAGES: ${{ github.event.commits.*.message }}
-          if: ${{ !contains(github.event.head_commit.message, '#docs') }}
-          run: echo 'skipping'
+          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
         run: echo "$COMMIT_MESSAGES"
-
-        #fmlasdf
-        ## this is and update pls update
+  if_skipping:
+    runs-on: ubuntu-20.04
+    if: ${{ contains(github.event.head_commit.message, '#skip') }}
+    steps:
+      - name: tell me i skipped
+        run: echo "skipped"
+        
