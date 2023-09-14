@@ -40,6 +40,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Always fail # remove this part after test is done
+        run: exit 1
       - name: Deploy to production if not skipped
         run: flyctl deploy --remote-only
         env:
@@ -51,6 +53,13 @@ jobs:
           severity: info
           details: Test Succeeded!
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Test Failure
+        uses: rjstone/discord-webhook-notify@v1
+        if: failure()
+        with:
+            severity: error
+            details: Test Failed!
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
 
 
   tag_release:
