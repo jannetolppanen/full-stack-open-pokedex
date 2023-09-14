@@ -21,7 +21,9 @@ jobs:
       - name: commit messages
         env:
           COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
-          if: contains(COMMIT_MESSAGES, '#skip')
+          if: ${{ !contains(github.event.head_commit.message, '#docs') }}
           run: echo 'skipping'
         run: echo "$COMMIT_MESSAGES"
-        ## skip
+
+        #fmlasdf
+        ## this is and update pls update
