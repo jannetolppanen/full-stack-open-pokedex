@@ -24,4 +24,4 @@ jobs:
           if: contains(COMMIT_MESSAGES, '#skip')
           run: echo 'skipping'
         run: echo "$COMMIT_MESSAGES"
-        ## yeet
+        ## skip
