@@ -1,44 +1,44 @@
-name: Testing stuff
+# name: Testing stuff
 
-on:
-  push:
-    branches:
-      - master
+# on:
+#   push:
+#     branches:
+#       - master
 
-jobs:
-  if_not_skipping:
-    runs-on: ubuntu-20.04
-    if: ${{ !contains(github.event.head_commit.message, '#skip') }}
-    steps:
-      - uses: actions/checkout@v2
-      - name: github context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: commits
-        env:
-          COMMITS: ${{ toJson(github.event.commits) }}
-        run: echo "$COMMITS"
-      - name: commit messages
-        env:
-          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
-        run: echo "$COMMIT_MESSAGES"
-  if_skipping:
-    runs-on: ubuntu-20.04
-    if: ${{ contains(github.event.head_commit.message, '#skip') }}
-    steps:
-      - name: tell me i skipped
-        run: echo "skipped"
-      - name: Test Custom
-        uses: rjstone/discord-webhook-notify@v1
-        with:
-            severity: info
-            username: janneks
-            color: '#ff00aa'
-            avatarUrl: https://github.githubassets.com/images/modules/logos_page/Octocat.png
-            description: This is a custom description.
-            details: 'Custom details: Somebody set up us the bomb.'
-            footer: This is a footer.
-            text: This is where text goes.
-            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+# jobs:
+#   if_not_skipping:
+#     runs-on: ubuntu-20.04
+#     if: ${{ !contains(github.event.head_commit.message, '#skip') }}
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: github context
+#         env:
+#           GITHUB_CONTEXT: ${{ toJson(github) }}
+#         run: echo "$GITHUB_CONTEXT"
+#       - name: commits
+#         env:
+#           COMMITS: ${{ toJson(github.event.commits) }}
+#         run: echo "$COMMITS"
+#       - name: commit messages
+#         env:
+#           COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
+#         run: echo "$COMMIT_MESSAGES"
+#   if_skipping:
+#     runs-on: ubuntu-20.04
+#     if: ${{ contains(github.event.head_commit.message, '#skip') }}
+#     steps:
+#       - name: tell me i skipped
+#         run: echo "skipped"
+#       - name: Test Custom
+#         uses: rjstone/discord-webhook-notify@v1
+#         with:
+#             severity: info
+#             username: janneks
+#             color: '#ff00aa'
+#             avatarUrl: https://github.githubassets.com/images/modules/logos_page/Octocat.png
+#             description: This is a custom description.
+#             details: 'Custom details: Somebody set up us the bomb.'
+#             footer: This is a footer.
+#             text: This is where text goes.
+#             webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
         
