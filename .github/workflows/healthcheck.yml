@@ -2,7 +2,7 @@ name: Health check
 
 on:
   schedule:
-    - cron: '5 0-23 * * *'
+    - cron: '0 0 1 1 *'
 
 jobs:
   ping_mainsite:
